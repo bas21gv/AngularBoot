@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cts.angularboot.pojo.User;
 import com.cts.angularboot.services.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "rest", description = "Angular Boot Application")
 @RestController
 @RequestMapping("/rest")
 public class RestApiController {
@@ -22,11 +26,12 @@ public class RestApiController {
 	
 	@Autowired
 	UserService userService;
-	
+	@ApiOperation(value = "View a list of available users")
 	@RequestMapping(value="/user/", method=RequestMethod.GET)
 	public ResponseEntity<List<User>> listAllUsers(){
 		
 		List<User> users = userService.findAllUsers();
+		System.out.println(users);
 		if(users.isEmpty()){
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}
